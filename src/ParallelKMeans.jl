@@ -1,6 +1,7 @@
 module ParallelKMeans
 
 using StatsBase
+using LoopVectorization
 import Base.Threads: @spawn
 
 include("seeding.jl")

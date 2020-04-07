@@ -53,12 +53,9 @@ function chunk_update_centroids!(centroids, containers, ::Lloyd,
         min_distance = Inf
         label = 1
         for k in axes(centroids, 2)
-            distance = 0.0
-            for j in axes(design_matrix, 1)
-                distance += (design_matrix[j, i] - centroids[j, k])^2
-            end
-            label = min_distance > distance ? k : label
-            min_distance = min_distance > distance ? distance : min_distance
+            dist = distance(design_matrix, centroids, i, k)
+            label = min_distance > dist ? k : label
+            min_distance = min_distance > dist ? dist : min_distance
         end
         labels[i] = label
         centroids_cnt[label] += 1

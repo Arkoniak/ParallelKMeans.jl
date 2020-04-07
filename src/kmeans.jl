@@ -91,8 +91,13 @@ end
 
 Allocationless calculation of square eucledean distance between vectors X1[:, i1] and X2[:, i2]
 """
-function distance(X1, X2, i1, i2)
+@inline function distance(X1, X2, i1, i2)
     d = 0.0
+    # @avx for i in axes(X1, 1)
+    #     a = (X1[i, i1] - X2[i, i2])
+    #     d += a * a
+    # end
+
     @inbounds for i in axes(X1, 1)
         d += (X1[i, i1] - X2[i, i2])^2
     end
